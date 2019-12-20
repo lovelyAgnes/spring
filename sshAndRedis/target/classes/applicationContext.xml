@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	  http://www.springframework.org/schema/tx
+  http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+	">
+	
+	<!-- 加载 hibernate的配置 定义sessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" >
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
+	</bean>
+   
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 开启注解事务，在Service类上面写上transational注解，注意导对包即可 -->
+	<tx:annotation-driven  transaction-manager="transactionManager" />
+	
+	 <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">	
+		<property name="sessionFactory" ref="sessionFactory"/>		
+	</bean> 
+	
+	<!--  <bean id="txProxyTemplate" abstract="true"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager"></ref>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean> -->
+	<!-- parent="txProxyTemplate" -->
+	<!-- <bean id="loggerAdvice" class="com.util.LoggerAdvice" />
+	<bean id="orderServiceImpl"   class="com.service.OrderServiceImpl"/>
+	<bean id="orderServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+    <property name="proxyInterfaces" value="com.service.IOrderService"></property>
+    放入切面
+    <property name="interceptorNames" >
+     <list>
+      <value>loggerAdvice</value>
+     </list>
+    </property>    
+    <property name="target">
+    	<ref local="orderServiceImpl" /> 
+    </property>
+    </bean> -->
+    
+</beans>

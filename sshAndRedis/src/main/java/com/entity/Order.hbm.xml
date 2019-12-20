@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.entity.Order" table="T_Order">
+        <id name="orderid" type="java.lang.Integer">
+            <column name="orderid" />
+            <generator class="increment" />
+        </id>
+        <property name="price" type="java.lang.Integer">
+            <column name="price" not-null="true" />
+        </property>
+        <property name="productname" type="java.lang.String">
+            <column name="productname" not-null="false" />
+        </property>
+       <!--  <property name="id" type="java.lang.Integer">
+            <column name="userid" not-null="true" />
+        </property>  cascade="save-update"-->
+        <many-to-one name="user" class="com.entity.User" >
+        	<column name="userid" />
+        </many-to-one>
+
+    </class>
+</hibernate-mapping>

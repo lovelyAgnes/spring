@@ -1,0 +1,1 @@
+mybatis使用原始方式配置，dao实现类继承SqlSessionDaoSupport
