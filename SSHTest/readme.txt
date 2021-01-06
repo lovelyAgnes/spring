@@ -1,0 +1,5 @@
+模仿其他项目，使用spring+springmvc+hibernate3，使用配置文件配置
+继承HibernateDaoSupport类
+jdbcUtil使用原生数据查询
+HandlerInterceptor过滤器
+spring一次请求过程：请求到dispatcherServlet控制器->requestHandleMapping->handleAdapter->具体controller(handle)->internalResourceViewResolver->返回渲染视图

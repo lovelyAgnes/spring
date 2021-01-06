@@ -39,7 +39,7 @@ private static Logger log=LoggerFactory.getLogger(UserController.class);
              user.setUserName("javen");
         }
        
-        log.debug(user.toString());
+        log.info(user.toString());
         model.addAttribute("user", user);  
         return "index";  
     }
@@ -51,6 +51,7 @@ private static Logger log=LoggerFactory.getLogger(UserController.class);
         System.out.println("userId:"+userId);
         User user = null;
         user = userService.getUserById(userId);  
+        log.info("showUser:"+user.toString());
         //log.debug(user.toString());
 //        model.addAttribute("user", user);  
         session.setAttribute("user", user);
@@ -60,7 +61,7 @@ private static Logger log=LoggerFactory.getLogger(UserController.class);
     }  
     @RequestMapping(value="ddd",method= RequestMethod.GET)
     public String test(HttpServletRequest request){
-    	
+    	log.info("test:监控数据收集");
     	return "list";
     	
     }
